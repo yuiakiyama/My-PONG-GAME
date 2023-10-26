@@ -1,5 +1,6 @@
 import pyxel
 
+
 SCENE_TITLE = 0
 SCENE_PLAY = 1
 SCENE_PLAYER1_WIN = 2
@@ -8,11 +9,11 @@ SCENE_PLAYER2_WIN = 3
 class App:
     def __init__(self):
         pyxel.init(450, 270, fps=60)
-        self.player_L_y = pyxel.height // 2
+        self.player_L_y = pyxel.height // 2 - 25
         self.player_L_x = 8
         self.player_L_score = 0
 
-        self.player_R_y = pyxel.height // 2
+        self.player_R_y = pyxel.height // 2 - 25
         self.player_R_x = pyxel.width - 18
         self.player_R_score = 0
 
@@ -32,10 +33,9 @@ class App:
         pyxel.run(self.update, self.draw)
 
     def ctext(self,tx,ty,msg,col):
-        ''' メッセージを中央表示 '''
         cx = pyxel.width / 2
         cy = pyxel.height / 2
-        num = len(msg) # 文字数取得
+        num = len(msg)
         x = cx - (num*4)/2
         y = cy - 4
         pyxel.text(x+tx,y+ty,msg,col)
@@ -81,7 +81,7 @@ class App:
         self.ball_x = pyxel.width // 2
         self.ball_y = pyxel.height // 2
         self.ball_col = 7
-        self.scene = SCENE_PLAY
+        self.scene = SCENE_TITLE
 
     def update_title_scene(self):
         if pyxel.btnp(pyxel.KEY_SPACE):
@@ -92,9 +92,9 @@ class App:
         self.update_player_R()
         self.update_ball()
         self.update_score()
-        if self.player_L_score >= 10:
+        if self.player_L_score >= 5:
             self.scene = SCENE_PLAYER1_WIN
-        elif self.player_R_score >= 10:
+        elif self.player_R_score >= 5:
             self.scene = SCENE_PLAYER2_WIN
 
     def update_gameover_scene(self):
@@ -189,10 +189,10 @@ class App:
 
     def draw_player1_win_scene(self):
         self.ctext(0, -80, "PLAYER1 WON!", 8)
-        self.ctext(0, -40, "- PRESS R to restart -", 7)
+        self.ctext(0, -60, "- PRESS R to restart -", 7)
 
     def draw_player2_win_scene(self):
         self.ctext(0, -80, "PLAYER2 WON!", 5)
-        self.ctext(0, -40, "- PRESS R to restartq -", 7)
+        self.ctext(0, -60, "- PRESS R to restartq -", 7)
 
 App()
