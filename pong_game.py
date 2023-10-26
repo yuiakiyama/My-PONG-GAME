@@ -68,12 +68,12 @@ class App:
         self.ball_speed_x = 1.5
 
     def restart_game(self):
-        self.player_L_y = 125
+        self.player_L_y = pyxel.height // 2 - 25
         self.player_L_x = 8
         self.player_L_score = 0
 
-        self.player_R_y = 125
-        self.player_R_x = pyxel.width - 15
+        self.player_R_y = pyxel.height // 2 - 25
+        self.player_R_x = pyxel.width - 18
         self.player_R_score = 0
 
         self.player_speed = 3
@@ -193,6 +193,6 @@ class App:
 
     def draw_player2_win_scene(self):
         self.ctext(0, -80, "PLAYER2 WON!", 5)
-        self.ctext(0, -60, "- PRESS R to restartq -", 7)
+        self.ctext(0, -60, "- PRESS R to restart -", 7)
 
 App()
