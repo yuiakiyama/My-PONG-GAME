@@ -177,6 +177,7 @@ class App:
             self.draw_player2_win_scene()
 
     def draw_title_scene(self):
+        pyxel.cls(0)
         self.ctext(0, -20, "PONG GAME", 7)
         self.ctext(0, 10, "- PRESS SPECCCCE -", 7)
 
