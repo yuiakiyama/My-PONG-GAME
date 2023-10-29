@@ -1,12 +1,12 @@
 import pyxel
 
-
 SCENE_TITLE = 0
 SCENE_PLAY = 1
 SCENE_PLAYER1_WIN = 2
 SCENE_PLAYER2_WIN = 3
 
 class App:
+
     def __init__(self):
         pyxel.init(450, 270, fps=60)
         self.player_L_y = pyxel.height // 2 - 25
@@ -40,20 +40,6 @@ class App:
         y = cy - 4
         pyxel.text(x+tx,y+ty,msg,col)
 
-        return
-    def update(self):
-        if pyxel.btnp(pyxel.KEY_Q):
-            pyxel.quit()
-        if pyxel.btnp(pyxel.KEY_R):
-            self.restart_game()
-        if self.scene == SCENE_TITLE:
-            self.update_title_scene()
-        elif self.scene == SCENE_PLAY:
-            self.update_play_scene()
-        elif self.scene == SCENE_PLAYER1_WIN or self.scene == SCENE_PLAYER2_WIN:
-            self.update_gameover_scene()
-
-
     def reset(self):
         self.ball_x = pyxel.width // 2
         self.ball_y = pyxel.height // 2
@@ -62,8 +48,10 @@ class App:
         self.player_speed = 3
         if pyxel.rndi(1, 2) == 1 :
             self.ball_speed_y = -self.ball_speed_y
+
     def R_ball(self):
         self.ball_speed_x = -1.5
+
     def L_ball(self):
         self.ball_speed_x = 1.5
 
@@ -166,15 +154,17 @@ class App:
             self.reset()
             self.L_ball()
 
-    def draw(self):
+    def update(self):
+        if pyxel.btnp(pyxel.KEY_Q):
+            pyxel.quit()
+        if pyxel.btnp(pyxel.KEY_R):
+            self.restart_game()
         if self.scene == SCENE_TITLE:
-            self.draw_title_scene()
+            self.update_title_scene()
         elif self.scene == SCENE_PLAY:
-            self.draw_play_scene()
-        elif self.scene == SCENE_PLAYER1_WIN:
-            self.draw_player1_win_scene()
-        elif self.scene == SCENE_PLAYER2_WIN:
-            self.draw_player2_win_scene()
+            self.update_play_scene()
+        elif self.scene == SCENE_PLAYER1_WIN or self.scene == SCENE_PLAYER2_WIN:
+            self.update_gameover_scene()
 
     def draw_title_scene(self):
         pyxel.cls(0)
@@ -195,5 +185,15 @@ class App:
     def draw_player2_win_scene(self):
         self.ctext(0, -80, "PLAYER2 WON!", 5)
         self.ctext(0, -60, "- PRESS R to restart -", 7)
+
+    def draw(self):
+        if self.scene == SCENE_TITLE:
+            self.draw_title_scene()
+        elif self.scene == SCENE_PLAY:
+            self.draw_play_scene()
+        elif self.scene == SCENE_PLAYER1_WIN:
+            self.draw_player1_win_scene()
+        elif self.scene == SCENE_PLAYER2_WIN:
+            self.draw_player2_win_scene()
 
 App()
